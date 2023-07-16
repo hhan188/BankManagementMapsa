@@ -4,6 +4,7 @@ import Exception.BusinessException;
 import serviceBussinceManager.AccountingService.Account;
 import serviceBussinceManager.BaseBackService.Bank;
 import serviceBussinceManager.BaseBackService.Branch;
+import serviceBussinceManager.CustomerService.Customer;
 import serviceBussinceManager.TransactionManagmentService.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
@@ -19,13 +20,13 @@ public class DataSourceFactory {
         try {
             Properties properties = new Properties();
             properties.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-            properties.put(Environment.URL, "jdbc:mysql://localhost:3306/bankmanagment");
+            properties.put(Environment.URL, "jdbc:mysql://localhost:3306/mapsa");
             properties.put(Environment.USER, "root");
-            properties.put(Environment.PASS, "H");
+//            properties.put(Environment.PASS, "H");
             properties.put(Environment.FORMAT_SQL, "true");
-            properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQLInnoDBDialect");
+            properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
             properties.put(Environment.SHOW_SQL, "true");
-            properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+            properties.put(Environment.HBM2DDL_AUTO, "update");
             properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 
             properties.put(Environment.POOL_SIZE, "5");
@@ -42,6 +43,7 @@ public class DataSourceFactory {
                     .addAnnotatedClass(Bank.class)
                     .addAnnotatedClass(Branch.class)
                     .addAnnotatedClass(Transaction.class)
+                    .addAnnotatedClass(Customer.class)
                     .buildSessionFactory();
 
         } catch (Exception ex) {

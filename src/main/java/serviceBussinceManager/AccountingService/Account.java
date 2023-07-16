@@ -1,7 +1,7 @@
 package serviceBussinceManager.AccountingService;
 
 
-import lombok.Data;
+import lombok.*;
 import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
 import serviceBussinceManager.TransactionManagmentService.Transaction;
@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Account {
     @Id
     @Column(name = "Account_Id")
