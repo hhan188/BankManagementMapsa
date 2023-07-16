@@ -15,7 +15,7 @@ public class Server {
 
         Repository.INSTANCE.init();
       //  LogService.INSTANCE.init();
-     //   CreatBankData.loadData();
+        CreatBankData.loadData();
 
     }
 

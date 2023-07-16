@@ -1,13 +1,18 @@
 package serviceBussinceManager.TransactionManagmentService;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import serviceBussinceManager.AccountingService.Account;
 
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Transaction {
     @Id
     @Column(name = "Transaction_Id")
