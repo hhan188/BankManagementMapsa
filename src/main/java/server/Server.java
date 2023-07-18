@@ -1,8 +1,8 @@
 package server;
 
+import serviceBussinceManager.AccountingService.AccountService;
 import serviceBussinceManager.BaseBackService.CreatBankData;
 import repository.Repository;
-import services.LogService;
 
 public class Server {
 
@@ -11,18 +11,21 @@ public class Server {
         server.initServerComponents();
 
     }
-    private void initServerComponents() throws Exception{
 
+    private void initServerComponents() throws Exception {
+
+        //todo: logService
         Repository.INSTANCE.init();
-      //  LogService.INSTANCE.init();
         CreatBankData.loadData();
+        AccountService accountService = new AccountService();
+        accountService.createSampleAccountForUser();
 
     }
 
     private void stop() {
-
+        //todo: logService
         Repository.INSTANCE.stop();
-      //  LogService.INSTANCE.stop();
+
 
     }
 

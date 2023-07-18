@@ -14,26 +14,26 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Customer
-{
+public class Customer {
     @Id
     @Column(name = "Customer_Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer customerNumber;
+    @Column(name = "CustomerNumber")
+    private String customerNumber;
     @Column(name = "status")
-    private boolean status;
+    private boolean status = true;
     @ManyToMany(cascade = {
-CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+            CascadeType.ALL
     })
     @JoinTable(
             name = "Account_Costumer",
             joinColumns = @JoinColumn(name = "Customer_Id"),
             inverseJoinColumns = @JoinColumn(name = "Account_Id")
     )
-    private Set<Account> accounts =new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
-    public Customer(Integer customerNumber) {
+    public Customer(String customerNumber) {
         this.customerNumber = customerNumber;
     }
 }

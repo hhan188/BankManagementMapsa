@@ -21,7 +21,8 @@ public class Account {
     @Column(name = "Account_Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer Account_number;
+    @Column(name = "AccountNumber")
+    private String Account_number;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
     @ManyToOne
@@ -30,9 +31,9 @@ public class Account {
     @ManyToMany(mappedBy = "accounts")
     private Set<Customer> customers = new HashSet<>();
     @Column(name = "status")
-    private boolean status;
+    private boolean status=true;
 
-    public Account(Integer account_number) {
+    public Account(String account_number) {
         Account_number = account_number;
     }
 }

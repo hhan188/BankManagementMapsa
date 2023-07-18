@@ -1,6 +1,7 @@
 package repository;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class CRUD<T> {
     private final Class<T> type;
@@ -9,12 +10,12 @@ public class CRUD<T> {
         this.type = type;
     }
 
-    public int create(Session connection, T entity) {
+    public void create(Session connection, T entity) {
         connection.beginTransaction();
-        int userId = (Integer) connection.save(entity);
+        connection.saveOrUpdate(entity);
         connection.getTransaction().commit();
         connection.close();
-        return userId;
+
     }
 
     public void update(Session connection, T entity) {
@@ -31,9 +32,17 @@ public class CRUD<T> {
         connection.getTransaction().commit();
         connection.close();
     }
+
     //todo:criteria
-  /*  public T getById(Integer id,Session connection){
-        T entity = connection.get(type , id);
+ /*   public T getEntityByColumnName(Session connection, T entity, String column) {
+        Query query = connection.createQuery("from " + entity + " where " + column + " like = :column");
+        query.setString(column, entity.);
+        Employee emp = (Employee) query.uniqueResult();
+        connection.beginTransaction();
+        T entity = connection.get(type, );
+        if (entity == null) {
+            return null;
+        }
         connection.close();
         return entity;
     }*/

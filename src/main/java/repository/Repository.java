@@ -1,6 +1,8 @@
 package repository;
 
+import serviceBussinceManager.AccountingService.Account;
 import serviceBussinceManager.BaseBackService.Bank;
+import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
 import org.hibernate.Session;
 import services.LogService;
@@ -22,17 +24,16 @@ public enum Repository {
     }
 
 
-    public int createNewCustomer(Customer customer, String logTrack) {
+    public void createNewCustomer(Customer customer, String logTrack) {
         Session connection = null;
         try {
             connection = MySqlDao.INSTANCE.getDataSource().openSession();
-            return MySqlDao.INSTANCE.createNewCustomer(connection, customer);
+            MySqlDao.INSTANCE.createNewCustomer(connection, customer);
         } catch (Exception e) {
             String logMessage =
                     "Exception in createNewCustomer --> "
                             + " logTrack: " + logTrack + " e: " + e.getMessage();
             logger.error(logMessage);
-            return -1;
         } finally {
             if (!Objects.isNull(connection)) {
                 try {
@@ -45,17 +46,17 @@ public enum Repository {
         }
     }
 
-    public int createNewBank(Bank bank, String logTrack) {
+    public void createNewBank(Bank bank, String logTrack) {
         Session connection = null;
         try {
             connection = MySqlDao.INSTANCE.getDataSource().openSession();
-            return MySqlDao.INSTANCE.createNewBank(connection, bank);
+            MySqlDao.INSTANCE.createNewBank(connection, bank);
         } catch (Exception e) {
             String logMessage =
                     "Exception in createNewBank --> "
                             + " logTrack: " + logTrack + " e: " + e.getMessage();
             logger.error(logMessage);
-            return -1;
+
         } finally {
             if (!Objects.isNull(connection)) {
                 try {
@@ -66,5 +67,51 @@ public enum Repository {
             }
 
         }
+    }
+
+    public Customer getCustomerByCustomerNumber(Customer customer, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            return MySqlDao.INSTANCE.getCustomerByCustomerNumber(connection, customer);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+            return null;
+        }
+    }
+
+    public Branch getBranchByCode(Branch branch, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            return MySqlDao.INSTANCE.getBranchByCode(connection, branch);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+            return null;
+        }
+
+    }
+
+    public void createNewAccount(Account account, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            MySqlDao.INSTANCE.createNewAccount(connection, account);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+        }
+
     }
 }

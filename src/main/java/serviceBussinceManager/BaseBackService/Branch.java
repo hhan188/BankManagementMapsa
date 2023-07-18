@@ -20,6 +20,7 @@ public class Branch
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Branch_Id")
     private Integer id;
+    @Column(name = "Branch_Code")
     private String branchCode;
     @ManyToOne
     @JoinColumn(name = "bank_id")

@@ -20,15 +20,15 @@ public class CreatBankData {
         Branch branch = new Branch("Sarv");
         Branch branch1 = new Branch("Jordan");
 
-        Account account = new Account(1);
-        Account account1 = new Account(2);
-        Account account2 = new Account(3);
-        Account account3 = new Account(4);
+        Account account = new Account("1");
+        Account account1 = new Account("2");
+        Account account2 = new Account("3");
+        Account account3 = new Account("4");
 
-        Customer customer = new Customer(1);
-        Customer customer1 = new Customer(2);
-        Customer customer2 = new Customer(3);
-        Customer customer3 = new Customer(4);
+        Customer customer = new Customer("1");
+        Customer customer1 = new Customer("2");
+        Customer customer2 = new Customer("3");
+        Customer customer3 = new Customer("4");
 
         Transaction transaction = new Transaction(TransactionType.deposit);
         Transaction transaction1 = new Transaction(TransactionType.payment);
