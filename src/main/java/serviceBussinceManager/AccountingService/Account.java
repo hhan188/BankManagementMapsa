@@ -22,7 +22,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "AccountNumber")
-    private String Account_number;
+    private String AccountNumber;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
     @ManyToOne
@@ -32,8 +32,10 @@ public class Account {
     private Set<Customer> customers = new HashSet<>();
     @Column(name = "status")
     private boolean status=true;
+    @Column(name="balance")
+    private long balance;
 
     public Account(String account_number) {
-        Account_number = account_number;
+        AccountNumber = account_number;
     }
 }

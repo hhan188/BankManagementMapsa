@@ -8,6 +8,7 @@ import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import serviceBussinceManager.TransactionManagmentService.Transaction;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,10 +57,13 @@ public enum MySqlDao {
     }
 
     public Customer getCustomerByCustomerNumber(Session connection, Customer customer) {
-
+   /*     SELECT t.*
+        FROM Hanieh.Customer t
+        WHERE CustomerNumber like '%1'
+*/
         String hqlQuery = "SELECT c FROM  Customer c WHERE c.customerNumber LIKE :name";
         Query query = connection.createQuery(hqlQuery);
-        query.setParameter("name", "%" + customer.getCustomerNumber() + "%");
+        query.setParameter("name", customer.getCustomerNumber());
         List<Customer> customers = query.list();
         if (customers.size()==0) {
             return null;
@@ -78,4 +82,23 @@ public enum MySqlDao {
         } else
             return branches.get(0);
     }
+
+    public void SaveOrUpdateNewTransaction(Session connection, Transaction transaction) {
+        CRUD<Transaction> insert = new CRUD<>(Transaction.class);
+        insert.create(connection, transaction);
+
+    }
+
+    public Account getAccountByAccountNumber(Session connection, Account account) {
+        String hqlQuery = "SELECT c FROM  Account c WHERE c.AccountNumber LIKE :code";
+        Query query = connection.createQuery(hqlQuery);
+        query.setParameter("code", "%" + account.getAccountNumber() + "%");
+        List<Account> accounts = query.list();
+        if (accounts.size()==0) {
+            return null;
+        } else
+            return accounts.get(0);
+    }
+
+
 }

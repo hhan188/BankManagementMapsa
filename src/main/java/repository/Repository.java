@@ -5,6 +5,7 @@ import serviceBussinceManager.BaseBackService.Bank;
 import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
 import org.hibernate.Session;
+import serviceBussinceManager.TransactionManagmentService.Transaction;
 import services.LogService;
 
 import java.util.Objects;
@@ -114,4 +115,38 @@ public enum Repository {
         }
 
     }
+
+
+    public void SaveOrUpdateNewTransaction(Transaction transaction, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            MySqlDao.INSTANCE.SaveOrUpdateNewTransaction(connection, transaction);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+        }
+
+
+    }
+
+    public Account getAccountByaccountNumber(Account account, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            return MySqlDao.INSTANCE.getAccountByAccountNumber(connection, account);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+            return null;
+        }
+    }
+
+
 }

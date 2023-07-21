@@ -12,27 +12,28 @@ import java.util.UUID;
 public class AccountService {
     Repository repository = Repository.INSTANCE;
 
-
-    public void createSampleAccountForUser() {
+    public void createSampleCustomerForUser() {
         String logTrack = String.valueOf(UUID.randomUUID());
         Account account = new Account();
+        //todo : set transaction in constructor null
         account.setTransactions(null);
+        account.setBalance(2000000);
         Branch branch = new Branch("Jordan");
-        if (repository.getBranchByCode(branch, logTrack) == null) {
+        branch = repository.getBranchByCode(branch, logTrack);
+        if (branch == null) {
             System.err.println("branch not found ");
+            return;
         } else {
-            branch = repository.getBranchByCode(branch, logTrack);
             account.setBranch(branch);
             String[] accountNumber = {"1234"};
             String[] customerNumbers = {"11", "2"};
-            account.setAccount_number(accountNumber[0]);
+            account.setAccountNumber(accountNumber[0]);
             Set<Account> accountSet = new HashSet<Account>();
             for (String customerNumber : customerNumbers) {
                 Customer customer = new Customer(customerNumber);
                 if (repository.getCustomerByCustomerNumber(customer, logTrack) == null) {
                     account.getCustomers().add(customer);
                     accountSet.add(account);
-                    customer.setAccounts(accountSet);
                     customer.setAccounts(accountSet);
                 } else {
                     customer = repository.getCustomerByCustomerNumber(customer, logTrack);
@@ -44,7 +45,6 @@ public class AccountService {
                 System.out.println("createAccountForUser SUCCESS");
 
             }
-
 
 
         }

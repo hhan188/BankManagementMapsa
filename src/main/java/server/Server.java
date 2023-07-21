@@ -3,6 +3,7 @@ package server;
 import serviceBussinceManager.AccountingService.AccountService;
 import serviceBussinceManager.BaseBackService.CreatBankData;
 import repository.Repository;
+import serviceBussinceManager.TransactionManagmentService.TransactionService;
 
 public class Server {
 
@@ -16,9 +17,11 @@ public class Server {
 
         //todo: logService
         Repository.INSTANCE.init();
-        CreatBankData.loadData();
-        AccountService accountService = new AccountService();
-        accountService.createSampleAccountForUser();
+        //  CreatBankData.loadData();
+        // AccountService accountService = new AccountService();
+        // accountService.createSampleCustomerForUser();
+        TransactionService transactionService = new TransactionService();
+        transactionService.paymentTransaction(5000000, "11", "1234");
 
     }
 
