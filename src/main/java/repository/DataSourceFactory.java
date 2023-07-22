@@ -27,14 +27,10 @@ public class DataSourceFactory {
             properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
             properties.put(Environment.SHOW_SQL, "true");
             properties.put(Environment.HBM2DDL_AUTO, "update");
-           /* properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-            properties.put(Environment.POOL_SIZE, "5");*/
-          /*  hibernate.connection.url=jdbc:mysql://localhost:3306/Bank?useSSL=false
-            hibernate.connection.username=root
-            hibernate.connection.password=Ehsan1376
-            hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-            hibernate.hbm2ddl.auto=create-drop
-            hibernate.show_sql=true*/
+            properties.put(Environment.USE_QUERY_CACHE,"true");
+            properties.put(Environment.USE_SECOND_LEVEL_CACHE , "true");
+            properties.put(Environment.CACHE_REGION_FACTORY,"org.hibernate.cache.ehcache.EhCacheRegionFactory");
+
 
             return new Configuration()
                     .setProperties(properties)

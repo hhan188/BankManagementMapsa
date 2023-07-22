@@ -2,6 +2,9 @@ package serviceBussinceManager.AccountingService;
 
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
+
 import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
 import serviceBussinceManager.TransactionManagmentService.Transaction;
@@ -16,6 +19,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="myEntityCache")
 public class Account {
     @Id
     @Column(name = "Account_Id")

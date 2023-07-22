@@ -1,6 +1,8 @@
 package repository;
 
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import org.hibernate.CacheMode;
 import org.hibernate.query.Query;
 import serviceBussinceManager.AccountingService.Account;
 import serviceBussinceManager.BaseBackService.Bank;
@@ -42,18 +44,18 @@ public enum MySqlDao {
 
     public void createNewCustomer(Session connection, Customer customer) {
         CRUD<Customer> insert = new CRUD<>(Customer.class);
-         insert.create(connection, customer);
+        insert.create(connection, customer);
 
     }
 
     public void createNewAccount(Session connection, Account account) {
         CRUD<Account> insert = new CRUD<>(Account.class);
-         insert.create(connection, account);
+        insert.create(connection, account);
     }
 
     public void createNewBank(Session connection, Bank bank) {
         CRUD<Bank> insert = new CRUD<>(Bank.class);
-         insert.create(connection, bank);
+        insert.create(connection, bank);
     }
 
     public Customer getCustomerByCustomerNumber(Session connection, Customer customer) {
@@ -65,7 +67,7 @@ public enum MySqlDao {
         Query query = connection.createQuery(hqlQuery);
         query.setParameter("name", customer.getCustomerNumber());
         List<Customer> customers = query.list();
-        if (customers.size()==0) {
+        if (customers.size() == 0) {
             return null;
         } else
             return customers.get(0);
@@ -77,7 +79,7 @@ public enum MySqlDao {
         Query query = connection.createQuery(hqlQuery);
         query.setParameter("code", "%" + branch.getBranchCode() + "%");
         List<Branch> branches = query.list();
-        if (branches.size()==0) {
+        if (branches.size() == 0) {
             return null;
         } else
             return branches.get(0);
@@ -93,8 +95,22 @@ public enum MySqlDao {
         String hqlQuery = "SELECT c FROM  Account c WHERE c.AccountNumber LIKE :code";
         Query query = connection.createQuery(hqlQuery);
         query.setParameter("code", "%" + account.getAccountNumber() + "%");
+        query.setCacheable(true);
+        query.setCacheRegion("myQueryCache");
         List<Account> accounts = query.list();
-        if (accounts.size()==0) {
+        if (accounts.size() == 0) {
+            return null;
+        } else
+            return accounts.get(0);
+    }
+
+    public Account getAccountByAccountNumber(Session connection, String account) {
+        String hqlQuery = "SELECT c FROM  Account c WHERE c.AccountNumber=:code";
+        Query query = connection.createQuery(hqlQuery);
+        query.setParameter("code", account);
+        query.setCacheable(true);
+        List<Account> accounts = query.list();
+        if (accounts.size() == 0) {
             return null;
         } else
             return accounts.get(0);

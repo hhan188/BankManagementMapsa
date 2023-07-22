@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import serviceBussinceManager.AccountingService.Account;
 
 
@@ -14,6 +15,10 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+
+@Cacheable
+@org.hibernate.annotations.Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+
 public class Transaction {
     @Id
     @Column(name = "Transaction_Id")

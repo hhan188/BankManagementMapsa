@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import serviceBussinceManager.AccountingService.Account;
 
 import javax.persistence.*;
@@ -14,6 +15,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+
+@Cacheable
+@org.hibernate.annotations.Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
 public class Customer {
     @Id
     @Column(name = "Customer_Id")

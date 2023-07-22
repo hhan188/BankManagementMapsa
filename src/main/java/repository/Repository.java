@@ -147,6 +147,20 @@ public enum Repository {
             return null;
         }
     }
+    public Account getAccountByaccountNumber(String account, String logTrack) {
+        Session connection;
+        try {
+            connection = MySqlDao.INSTANCE.getDataSource().openSession();
+            return MySqlDao.INSTANCE.getAccountByAccountNumber(connection, account);
+
+        } catch (Exception e) {
+            String logMessage =
+                    "Exception in createNewBank --> "
+                            + " logTrack: " + logTrack + " e: " + e.getMessage();
+            logger.error(logMessage);
+            return null;
+        }
+    }
 
 
 }

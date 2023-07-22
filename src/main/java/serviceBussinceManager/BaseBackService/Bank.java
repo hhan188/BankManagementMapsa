@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,6 +14,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+
+@Cacheable
+@org.hibernate.annotations.Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

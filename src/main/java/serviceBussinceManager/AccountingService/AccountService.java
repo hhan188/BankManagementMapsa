@@ -4,6 +4,7 @@ package serviceBussinceManager.AccountingService;
 import repository.Repository;
 import serviceBussinceManager.BaseBackService.Branch;
 import serviceBussinceManager.CustomerService.Customer;
+import serviceBussinceManager.TransactionManagmentService.Transaction;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,6 +49,13 @@ public class AccountService {
 
 
         }
+    }
+
+
+    public void sampleTestForCatchData(String account){
+        repository.getAccountByaccountNumber(account,"11");
+        repository.getAccountByaccountNumber(account,"11");
+
     }
 }
 
